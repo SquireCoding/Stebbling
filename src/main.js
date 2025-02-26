@@ -116,31 +116,7 @@ function getFileContents(f) {
   return daterarr;
 }
 
-function smart95Split(seq) {
-  let arr = [];
-  let lastChop=0;
-  for (let i =0; i<seq.length;i+=2) {
-    if (seq.charAt(i)==='9'&&seq.charAt(i+1)==='5') {
-      arr.push(seq.substring(lastChop,i));
-      lastChop=i+2;
-    }
-  }
-  if (lastChop==0) arr = [seq]; else arr.push(seq.substring(lastChop,seq.length));
-  return arr;
-}
 
-function smart97Split(seq) {
-  let arr = [];
-  let lastChop=0;
-  for (let i =0; i<seq.length;i+=2) {
-    if (seq.charAt(i)==='9'&&seq.charAt(i+1)==='7') {
-      arr.push(seq.substring(lastChop,i));
-      lastChop=i+2;
-    }
-  }
-  if (lastChop==0) arr = [seq]; else arr.push(seq.substring(lastChop,seq.length));
-  return arr;
-}
 
 function writeFileContents(f, arr) {
   let fs = require("fs");
@@ -156,12 +132,13 @@ function init() {
     let fs = require('fs');
     if (!fs.existsSync('Storage/Accounts')) {
       createFolder("Storage/Accounts");
-      console.log("WARNING: Equilibrium will not work correctly if you do not turn on case sensitivity! This will be different for all OS types, but you can do it on Windows by opening Command Prompt and running \"fsutil.exe file setCaseSensitiveInfo [path]\\Frontend\\Storage\\Accounts enable\". DO NOT ATTEMPT TO HOST EQUILIBRIUM WITHOUT CHANGING THIS!");
+      createFile("Storage/Accounts/usernames.txt");
+      createFile("Storage/Accounts/passwords.txt");
     }
 }
 
 /** 
-* @author Emma <viriju@proton.me>
+* @author Emma <CLASSIFIED>
 */
 function accountExists(username) {
     let fs = require('fs');
@@ -180,7 +157,7 @@ function accountExists(username,password) {
 * Appends a string to a file.
 * @param {string} file - The path of the file to append the string to
 * @param {string} string - The string to append
-* @author Emma <viriju@proton.me>
+* @author Emma <CLASSIFIED>
 */
 function appendToFile(file, string) {
     if (typeof file === 'string' && typeof string === 'string') {
@@ -256,7 +233,7 @@ function eraseFile(f) {
 /**
 * Adds an account to the locked accounts file.
 * @param {string} username - The username of the account you wish to lock
-* @author Emma <viriju@proton.me>
+* @author Emma <CLASSIFIED>
 */
 function lockAccount(username) {
     // Stored as 'username.date'
@@ -270,7 +247,7 @@ function lockAccount(username) {
 * @param {string} s - The string to be written to the file
 * @return {boolean} true (if the operation was successful) or false (if it was unsuccessful)
 * @author InJava:Ben
-* @author InJavaScript:Emma <viriju@proton.me>
+* @author InJavaScript:Emma <CLASSIFIED>
 */
 function writeToFile(file, s) {
     if (typeof file === 'string' && typeof s === 'string') {
@@ -289,7 +266,7 @@ function writeToFile(file, s) {
 }
 /** 
 * Removes expired account locks. Very likely to be broken.
-* @author Emma <viriju@proton.me>
+* @author Emma <CLASSIFIED>
 */
 function updateLockout() {
     const fs = require('fs');
